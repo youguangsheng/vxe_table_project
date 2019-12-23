@@ -1,7 +1,12 @@
 <template>
-  <div id="app" class="congested">
+  <div id="app">
     <router-view />
   </div>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+#app {
+  width: 100%;
+  height: 100vh;
+}
+</style>
