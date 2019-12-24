@@ -1,0 +1,17 @@
+.contain {
+  display: felx;
+  justify-content: flex-start;
+
+  $--sidebar-width: 220px;
+  .side-bar{
+    flex: 0 0 $--sidebar-width;
+    width: $--sidebar-width;
+    height: 100%;
+    background-color: #000;
+  }
+
+  .main-content{
+    flex: auto;
+    height: 100%;
+  }
+}

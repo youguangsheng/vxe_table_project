@@ -56,6 +56,9 @@ export default {
       }
     };
   },
+  mounted() {
+    window.addEventListener("keyup", this.handleKeyup);
+  },
   methods: {
     userLogin() {
       if (
@@ -77,6 +80,12 @@ export default {
     },
     resetForm() {
       this.$refs.ruleForm.resetFields();
+    },
+    handleKeyup(event) {
+      const e = event || window.event || arguments.callee.caller.arguments[0];
+      if (!e) return;
+      const { keyCode } = e;
+      if (keyCode === 13) this.submitForm();
     }
   }
 };

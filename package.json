@@ -30,6 +30,7 @@
     "node-sass": "^4.12.0",
     "prettier": "^1.19.1",
     "sass-loader": "^8.0.0",
+    "vue-svg-icon": "^1.2.9",
     "vue-template-compiler": "^2.6.10"
   }
 }
