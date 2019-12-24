@@ -1,6 +1,5 @@
 .contain {
-  display: felx;
-  justify-content: flex-start;
+  display: flex;
 
   $--sidebar-width: 220px;
   .side-bar{
@@ -11,7 +10,7 @@
   }
 
   .main-content{
-    flex: auto;
+    flex: 1;
     height: 100%;
   }
 }

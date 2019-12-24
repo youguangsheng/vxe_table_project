@@ -4,6 +4,7 @@
       <SideBar />
     </div>
     <div class="main-content">
+      <TopBar />
       <router-view />
     </div>
   </div>
@@ -11,9 +12,11 @@
 
 <script>
 import SideBar from "@/components/sideBar/index.vue";
+import TopBar from "@/components/topBar/index.vue";
 export default {
   components: {
-    SideBar
+    SideBar,
+    TopBar
   }
 };
 </script>
