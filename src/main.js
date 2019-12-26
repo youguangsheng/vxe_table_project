@@ -6,6 +6,12 @@ import Icon from "vue-svg-icon/Icon.vue";
 import ElementUI from "element-ui";
 import "@/assets/css/index.scss";
 import "element-ui/lib/theme-chalk/index.css";
+import "@/utils/global/index.js";
+import "xe-utils";
+import VXETable from "vxe-table";
+import "vxe-table/lib/index.css";
+
+Vue.use(VXETable);
 
 Vue.component("icon", Icon);
 Vue.use(ElementUI, { size: "small" });

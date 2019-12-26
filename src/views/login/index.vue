@@ -41,6 +41,7 @@
 </template>
 
 <script>
+// import API from "@/api/userInfo.js";
 export default {
   data() {
     return {
@@ -61,12 +62,10 @@ export default {
   },
   methods: {
     userLogin() {
-      if (
-        this.ruleForm.userName === "yougs" &&
-        this.ruleForm.password === "123"
-      ) {
-        this.$router.replace("/backstage");
-      }
+      // let params = this.ruleForm;
+      // API.login(params).then(data => console.log(data));
+
+      this.$router.replace("/backstage");
     },
     submitForm() {
       this.$refs.ruleForm.validate(valid => {
