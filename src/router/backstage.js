@@ -9,8 +9,14 @@ export default [
         component: () => import("@/views/backstage/home/index.vue")
       },
       {
-        path: "table",
-        component: () => import("@/views/backstage/table/index.vue")
+        path: "task",
+        component: () => import("@/views/backstage/task/index.vue"),
+        children: [
+          {
+            path: "plan",
+            component: () => import("@/views/backstage/task/plan/index.vue")
+          }
+        ]
       }
     ]
   }
