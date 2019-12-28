@@ -6,5 +6,8 @@ Vue.prototype.error = message => {
 };
 
 Vue.prototype.success = message => {
-  Message.success(message);
+  Message({
+    type: "success",
+    message
+  });
 };

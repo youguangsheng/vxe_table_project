@@ -13,26 +13,28 @@
         text-color="#fff"
         active-text-color="#f7d828"
       >
-        <el-submenu
-          :index="item.path"
-          v-for="(item, index) in menuList"
-          :key="index"
-        >
-          <template slot="title">
+        <div :index="item.path" v-for="(item, index) in menuList" :key="index">
+          <el-submenu v-if="item.children.length" :index="`${index}`">
+            <template slot="title">
+              <icon :name="item.icon" class="icon"></icon>
+              <span slot="title">{{ item.menuName }}</span>
+            </template>
+            <el-menu-item-group>
+              <el-menu-item
+                :index="`${index}-${subIndex}`"
+                v-for="(subItem, subIndex) in item.children"
+                :key="index + subIndex"
+                :route="{ path: subItem.path }"
+              >
+                {{ subItem.menuName }}
+              </el-menu-item>
+            </el-menu-item-group>
+          </el-submenu>
+          <el-menu-item v-else :route="{ path: item.path }" :index="`${index}`">
             <icon :name="item.icon" class="icon"></icon>
             <span slot="title">{{ item.menuName }}</span>
-          </template>
-          <el-menu-item-group v-if="item.children.length">
-            <el-menu-item
-              :index="`${index}-${subIndex}`"
-              v-for="(subItem, subIndex) in item.children"
-              :key="index + subIndex"
-              :route="{ path: subItem.path }"
-            >
-              {{ subItem.menuName }}
-            </el-menu-item>
-          </el-menu-item-group>
-        </el-submenu>
+          </el-menu-item>
+        </div>
       </el-menu>
     </div>
   </div>
@@ -76,9 +78,21 @@ export default {
               children: []
             }
           ]
+        },
+        {
+          menuName: "经历",
+          icon: "resume",
+          path: "/backstage/resume",
+          children: []
         }
       ]
     };
+  },
+  methods: {
+    judgePage(path) {
+      this.$router.push(path);
+      console.log(path);
+    }
   }
 };
 </script>

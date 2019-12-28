@@ -31,7 +31,7 @@
           </div>
         </el-form>
         <div class="flexRow login-btn">
-          <el-button type="primary" class="button" @click="submitForm">
+          <el-button type="primary" class="button" @click="userLogin">
             登录
           </el-button>
         </div>
@@ -63,16 +63,17 @@ export default {
   methods: {
     userLogin() {
       // let params = this.ruleForm;
-      // API.login(params).then(data => console.log(data));
-
+      // API.login(params).then(data => {
+      // this.success(data);
       this.$router.replace("/backstage");
+      // });
     },
     submitForm() {
       this.$refs.ruleForm.validate(valid => {
         if (valid) {
           this.userLogin();
         } else {
-          console.log("error submit!!");
+          // console.log("error submit!!");
           return false;
         }
       });

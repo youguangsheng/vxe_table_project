@@ -17,6 +17,10 @@ export default [
             component: () => import("@/views/backstage/task/plan/index.vue")
           }
         ]
+      },
+      {
+        path: "resume",
+        component: () => import("@/views/backstage/resume/index.vue")
       }
     ]
   }
