@@ -41,7 +41,7 @@
 </template>
 
 <script>
-// import API from "@/api/userInfo.js";
+import API from "@/api/userInfo.js";
 export default {
   data() {
     return {
@@ -62,11 +62,11 @@ export default {
   },
   methods: {
     userLogin() {
-      // let params = this.ruleForm;
-      // API.login(params).then(data => {
-      // this.success(data);
-      this.$router.replace("/backstage");
-      // });
+      let params = this.ruleForm;
+      API.login(params).then(data => {
+        this.success(data);
+        this.$router.replace("/backstage");
+      });
     },
     submitForm() {
       this.$refs.ruleForm.validate(valid => {
