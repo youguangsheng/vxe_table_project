@@ -2,20 +2,24 @@
   justify-content: center;
   box-sizing: border-box;
   overflow: hidden;
+  background-color: #ededed;
 
   .my-resume {
     width: 60%;
-    height: 80%;
+    height: 85%;
     margin-top: 50px;
+    padding: 50px 0;
+    box-sizing: border-box;
     overflow: hidden;
+    background-color: #fff;
+    box-shadow: 5px 5px 20px 5px rgba(0, 0, 0, 0.2);
 
     .tiemline {
       width: 100%;
       height: 100%;
-      padding: 20px;
+      padding: 0 50px;
       overflow: auto;
       box-sizing: border-box;
-      // border: 1px solid #ddd;
 
       h3{
         font-size: 16px;

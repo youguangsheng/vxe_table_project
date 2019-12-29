@@ -84,6 +84,21 @@ export default {
           icon: "resume",
           path: "/backstage/resume",
           children: []
+        },
+        {
+          menuName: "CSS收藏",
+          icon: "CSS-3",
+          path: "/backstage/CSSCollect",
+          children: [
+            {
+              menuName: "酷炫动画",
+              path: "/backstage/CSSCollect/coolAnimation"
+            },
+            {
+              menuName: "随机粒子动画",
+              path: "/backstage/CSSCollect/fullSnow"
+            }
+          ]
         }
       ]
     };

@@ -1,0 +1,15 @@
+.contain {
+  justify-content: center;
+  padding: 20px;
+  box-sizing: border-box;
+  flex-wrap: wrap;
+  .first-box {
+    width: 50%;
+    height: 200px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background: #222;
+  }
+}

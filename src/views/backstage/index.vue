@@ -3,9 +3,13 @@
     <div class="side-bar">
       <SideBar />
     </div>
-    <div class="main-content">
-      <TopBar />
-      <router-view />
+    <div class="main-content flexColumn">
+      <div class="top-bar">
+        <TopBar />
+      </div>
+      <div class="view">
+        <router-view />
+      </div>
     </div>
   </div>
 </template>

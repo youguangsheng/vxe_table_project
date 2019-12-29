@@ -21,6 +21,22 @@ export default [
       {
         path: "resume",
         component: () => import("@/views/backstage/resume/index.vue")
+      },
+      {
+        path: "CSSCollect",
+        component: () => import("@/views/backstage/CSSCollect/index.vue"),
+        children: [
+          {
+            path: "coolAnimation",
+            component: () =>
+              import("@/views/backstage/CSSCollect/coolAnimation/index.vue")
+          },
+          {
+            path: "fullSnow",
+            component: () =>
+              import("@/views/backstage/CSSCollect/fullSnow/index.vue")
+          }
+        ]
       }
     ]
   }
