@@ -102,12 +102,6 @@ export default {
         }
       ]
     };
-  },
-  methods: {
-    judgePage(path) {
-      this.$router.push(path);
-      console.log(path);
-    }
   }
 };
 </script>

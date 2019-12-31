@@ -5,11 +5,11 @@
       <div class="search-box mr5">
         <el-input type="text" placeholder="请输入搜索标题"></el-input>
       </div>
-      <el-button type="primary">查询</el-button>
+      <el-button type="primary" @click="selectTaskList">查询</el-button>
       <el-button type="success" @click="addPlan">新增</el-button>
       <el-button type="danger" @click="mutilRemove">删除</el-button>
     </div>
-    <div class="table-li mt10">
+    <div class="congested mt10">
       <vxe-grid
         border
         resizable
@@ -29,6 +29,8 @@
 
 <script>
 import AddPlanDialog from "@/components/dialog/addPlanDialog/index.vue";
+import API from "@/api/taskList.js";
+
 export default {
   components: {
     AddPlanDialog
@@ -50,7 +52,7 @@ export default {
         },
         { field: "taskTitle", title: "任务主题" },
         { field: "taskName", title: "任务内容" },
-        { field: "createTime", title: "创建时间" },
+        { field: "createdAt", title: "创建时间" },
         { field: "endTime", title: "结束时间" },
         { field: "taskStatus", title: "任务状态" },
         {
@@ -85,10 +87,10 @@ export default {
       {
         taskTitle: "写个计划表格",
         taskName: "使用vxe搭建一个表格,实现一个任务列表",
-        createTime: "2019-12-16",
+        createdAt: "2019-12-16",
         endTime: "2019-12-26",
         taskStatus: "未完成",
-        taskId: 1
+        id: 1
       }
     ];
   },
@@ -108,7 +110,7 @@ export default {
       });
     },
     revise(row) {
-      if (row.taskId) this.$refs.addPlanDialog.Show(row.taskId);
+      if (row.id) this.$refs.addPlanDialog.Show(row.id);
     },
     remove(row) {
       let index = "";
@@ -116,6 +118,13 @@ export default {
         index = this.tableData.findIndex(item => item.taskId === row.taskId);
       }
       this.tableData.splice(index, 1);
+    },
+    selectTaskList() {
+      API.getAllTaskList()
+        .then(data => {
+          this.tableData = data;
+        })
+        .catch(() => {});
     }
   }
 };

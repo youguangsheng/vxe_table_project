@@ -2,7 +2,7 @@
   <div class="congested">
     <div class="login-view congested">
       <div class="login-box">
-        <h3>登录</h3>
+        <h3>{{ title }}</h3>
         <el-form
           ref="ruleForm"
           :model="ruleForm"
@@ -31,9 +31,14 @@
           </div>
         </el-form>
         <div class="flexRow login-btn">
-          <el-button type="primary" class="button" @click="userLogin">
-            登录
+          <el-button type="primary" class="button" @click="submitForm">
+            {{ title }}
           </el-button>
+        </div>
+        <div class="create-user mt5">
+          <el-link type="primary" @click="register">
+            {{ registerName }}
+          </el-link>
         </div>
       </div>
     </div>
@@ -46,15 +51,17 @@ export default {
   data() {
     return {
       ruleForm: {
-        userName: undefined,
-        password: undefined
+        userName: "",
+        password: ""
       },
       rules: {
         userName: [
           { required: true, message: "请输入用户名", trigger: "blur" }
         ],
         password: [{ required: true, message: "请输入密码", trigger: "blur" }]
-      }
+      },
+      title: "登录",
+      registerName: "立即注册"
     };
   },
   mounted() {
@@ -68,12 +75,20 @@ export default {
         this.$router.replace("/backstage");
       });
     },
+    userRegister() {
+      let params = this.ruleForm;
+      API.register(params).then(data => {
+        this.success(data);
+        this.register();
+      });
+    },
     submitForm() {
       this.$refs.ruleForm.validate(valid => {
         if (valid) {
-          this.userLogin();
+          if (this.title === "登录") this.userLogin();
+          if (this.title === "注册") this.userRegister();
         } else {
-          // console.log("error submit!!");
+          console.log("error submit!!");
           return false;
         }
       });
@@ -86,6 +101,16 @@ export default {
       if (!e) return;
       const { keyCode } = e;
       if (keyCode === 13) this.submitForm();
+    },
+    register() {
+      this.resetForm();
+      if (this.title === "登录") {
+        this.title = "注册";
+        this.registerName = "已有账号去登录";
+        return;
+      }
+      this.title = "登录";
+      this.registerName = "立即注册";
     }
   }
 };
