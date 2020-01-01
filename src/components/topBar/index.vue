@@ -9,12 +9,29 @@
         />
       </div>
       <div class="user-name">samco</div>
+      <div class="icon" @click="logout">
+        <icon name="logout" class="icon ml10"></icon>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  methods: {
+    logout() {
+      this.$confirm("确定退出当前登录?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      })
+        .then(() => {
+          window.location.replace("/");
+        })
+        .catch(() => {});
+    }
+  }
+};
 </script>
 
 <style scoped lang="scss">

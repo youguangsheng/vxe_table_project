@@ -40,7 +40,7 @@ export default {
       allAlign: null,
       loading: false,
       tableColumn: [
-        { type: "checkbox", width: 50 },
+        { type: "checkbox", width: 40 },
         {
           type: "seq",
           width: 50,
@@ -52,12 +52,28 @@ export default {
         },
         { field: "taskTitle", title: "任务主题" },
         { field: "taskName", title: "任务内容" },
-        { field: "startTime", title: "创建时间" },
-        { field: "endTime", title: "结束时间" },
-        { field: "taskStatus", title: "任务状态" },
+        { field: "startTime", title: "创建时间", width: 180, remoteSort: true },
+        { field: "endTime", title: "结束时间", width: 180 },
+        {
+          field: "taskStatus",
+          title: "任务状态",
+          width: 120,
+          filters: [
+            { label: "未完成", value: 0 },
+            { label: "已完成", value: 1 }
+          ],
+          filterMultiple: false,
+          filterMethod: this.filterTaskStatusMethod,
+          slots: {
+            default: ({ row }) => {
+              return [<div>{row.taskStatus === 0 ? "未完成" : "已完成"}</div>];
+            }
+          }
+        },
         {
           field: "edit",
           title: "操作",
+          width: 150,
           slots: {
             default: ({ row }) => {
               return [
@@ -87,19 +103,6 @@ export default {
       delLineIds: []
     };
   },
-  created() {
-    // this.loading = true;
-    this.tableData = [
-      {
-        taskTitle: "写个计划表格",
-        taskName: "使用vxe搭建一个表格,实现一个任务列表",
-        createdAt: "2019-12-16",
-        endTime: "2019-12-26",
-        taskStatus: "未完成",
-        id: 1
-      }
-    ];
-  },
   mounted() {
     this.selectTaskList();
   },
@@ -112,10 +115,18 @@ export default {
       let checkboxRecords = this.$refs.xGrid.getCheckboxRecords();
       if (!checkboxRecords.length) return this.error("请选择一条数据操作");
       checkboxRecords.forEach(row => this.delLineIds.push(row.id));
-      API.deleteTask({ delLineIds: this.delLineIds })
+      this.$confirm("确定要删除此任务,此操作不可逆?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      })
         .then(() => {
-          this.delLineIds = [];
-          this.selectTaskList();
+          API.deleteTask({ delLineIds: this.delLineIds })
+            .then(() => {
+              this.delLineIds = [];
+              this.selectTaskList();
+            })
+            .catch(() => {});
         })
         .catch(() => {});
     },
@@ -123,21 +134,28 @@ export default {
       if (row.id) this.$refs.addPlanDialog.Show(row.id);
     },
     remove(row) {
-      if (row.id) {
-        this.delLineIds.push(row.id);
-        API.deleteTask({ delLineIds: this.delLineIds })
-          .then(() => {
-            this.delLineIds = [];
-            this.selectTaskList();
-          })
-          .catch(() => {});
-      }
+      this.$confirm("确定要删除此任务,此操作不可逆?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      })
+        .then(() => {
+          if (!row.id) return;
+          this.delLineIds.push(row.id);
+          API.deleteTask({ delLineIds: this.delLineIds })
+            .then(() => {
+              this.delLineIds = [];
+              this.selectTaskList();
+            })
+            .catch(() => {});
+        })
+        .catch(() => {});
     },
     complete(row) {
-      if (row.id)
-        API.completeTask({ id: row.id })
-          .then(() => this.selectTaskList())
-          .catch(() => {});
+      if (!row.id) return;
+      API.completeTask({ id: row.id })
+        .then(() => this.selectTaskList())
+        .catch(() => {});
     },
     selectTaskList() {
       API.getAllTaskList()
@@ -145,6 +163,10 @@ export default {
           this.tableData = data;
         })
         .catch(() => {});
+    },
+    filterTaskStatusMethod({ option, row }) {
+      if (!this.tableData.length) return;
+      return row.taskStatus === option.value;
     }
   }
 };
