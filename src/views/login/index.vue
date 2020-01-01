@@ -88,7 +88,7 @@ export default {
           if (this.title === "登录") this.userLogin();
           if (this.title === "注册") this.userRegister();
         } else {
-          console.log("error submit!!");
+          // console.log("error submit!!");
           return false;
         }
       });

@@ -52,13 +52,18 @@ export default {
           { required: true, message: "请输入任务内容", trigger: "blur" }
         ]
       },
-      loading: false
+      loading: false,
+      id: null
     };
   },
   methods: {
     Show(id = "") {
       this.dialogVisible = true;
-      if (id) this.getTaskDetail(id);
+      this.id = null;
+      if (id) {
+        this.id = id;
+        this.getTaskDetail(id);
+      }
     },
     Cansel() {
       this.dialogVisible = false;
@@ -69,7 +74,7 @@ export default {
         if (valid) {
           this.saveTask();
         } else {
-          console.log("error submit!!");
+          // console.log("error submit!!");
           return false;
         }
       });
@@ -78,11 +83,13 @@ export default {
       this.$refs.ruleForm.resetFields();
     },
     saveTask() {
-      let params = this.ruleForm;
+      let params = { ...this.ruleForm };
+      if (this.id) params.id = this.id;
       this.loading = true;
       API.saveTask(params)
         .then(data => {
           this.success(data);
+          this.$emit("selectTaskList");
           this.Cansel();
         })
         .catch(() => {})

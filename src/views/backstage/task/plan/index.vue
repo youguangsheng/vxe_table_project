@@ -1,6 +1,6 @@
 <template>
   <div class="table">
-    <AddPlanDialog ref="addPlanDialog" />
+    <AddPlanDialog ref="addPlanDialog" @selectTaskList="selectTaskList" />
     <div class="search-header flexRow">
       <div class="search-box mr5">
         <el-input type="text" placeholder="请输入搜索标题"></el-input>
@@ -52,7 +52,7 @@ export default {
         },
         { field: "taskTitle", title: "任务主题" },
         { field: "taskName", title: "任务内容" },
-        { field: "createdAt", title: "创建时间" },
+        { field: "startTime", title: "创建时间" },
         { field: "endTime", title: "结束时间" },
         { field: "taskStatus", title: "任务状态" },
         {
@@ -68,6 +68,11 @@ export default {
                     </el-link>
                   </div>
                   <div class="edit-btn">
+                    <el-link type="success" onClick={() => this.complete(row)}>
+                      完成
+                    </el-link>
+                  </div>
+                  <div class="edit-btn">
                     <el-link type="danger" onClick={() => this.remove(row)}>
                       删除
                     </el-link>
@@ -78,7 +83,8 @@ export default {
           }
         }
       ],
-      tableData: []
+      tableData: [],
+      delLineIds: []
     };
   },
   created() {
@@ -94,6 +100,9 @@ export default {
       }
     ];
   },
+  mounted() {
+    this.selectTaskList();
+  },
   methods: {
     addPlan() {
       this.$refs.addPlanDialog.Show();
@@ -102,22 +111,33 @@ export default {
       /* 获取复选框选中的行数据 返回一个数组 */
       let checkboxRecords = this.$refs.xGrid.getCheckboxRecords();
       if (!checkboxRecords.length) return this.error("请选择一条数据操作");
-      checkboxRecords.forEach(row => {
-        let index = this.tableData.findIndex(
-          item => item.taskId === row.taskId
-        );
-        this.tableData.splice(index, 1);
-      });
+      checkboxRecords.forEach(row => this.delLineIds.push(row.id));
+      API.deleteTask({ delLineIds: this.delLineIds })
+        .then(() => {
+          this.delLineIds = [];
+          this.selectTaskList();
+        })
+        .catch(() => {});
     },
     revise(row) {
       if (row.id) this.$refs.addPlanDialog.Show(row.id);
     },
     remove(row) {
-      let index = "";
-      if (row.taskId) {
-        index = this.tableData.findIndex(item => item.taskId === row.taskId);
+      if (row.id) {
+        this.delLineIds.push(row.id);
+        API.deleteTask({ delLineIds: this.delLineIds })
+          .then(() => {
+            this.delLineIds = [];
+            this.selectTaskList();
+          })
+          .catch(() => {});
       }
-      this.tableData.splice(index, 1);
+    },
+    complete(row) {
+      if (row.id)
+        API.completeTask({ id: row.id })
+          .then(() => this.selectTaskList())
+          .catch(() => {});
     },
     selectTaskList() {
       API.getAllTaskList()
