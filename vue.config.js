@@ -1,7 +1,7 @@
-// const _monent = require("moment");
+const _moment = require("moment");
 const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
   .BundleAnalyzerPlugin;
-
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 const externals = {
   vue: "Vue",
   "vue-router": "VueRouter",
@@ -15,6 +15,13 @@ const externals = {
   moment: "moment"
 };
 
+const configuration = {
+  buildTime: _moment().format("YYYY-MM-DD HH:mm:ss"),
+  title: "my app",
+  keywords: "",
+  description: "个人练习项目"
+};
+
 module.exports = {
   publicPath: "/",
   outputDir: "dist",
@@ -22,12 +29,32 @@ module.exports = {
   configureWebpack: config => {
     if (process.env.NODE_ENV === "production") {
       return {
-        externals: externals,
-        plugins: [new BundleAnalyzerPlugin()]
+        externals: externals, //不打包引入的排除在外
+        plugins: [
+          new BundleAnalyzerPlugin(),
+          new HtmlWebpackPlugin({
+            template: "public/index.html",
+            buildTime: configuration.buildTime,
+            title: configuration.title,
+            keywords: configuration.keywords,
+            description: configuration.description,
+            BASE_URL: "/"
+          })
+        ]
       };
     }
     return {
-      externals: externals
+      externals: externals,
+      plugins: [
+        new HtmlWebpackPlugin({
+          template: "public/index.html",
+          buildTime: configuration.buildTime,
+          title: configuration.title,
+          keywords: configuration.keywords,
+          description: configuration.description,
+          BASE_URL: "/"
+        })
+      ]
     };
   },
   devServer: {
@@ -45,5 +72,27 @@ module.exports = {
       }
     }
   },
-  productionSourceMap: false
+  productionSourceMap: false,
+  /* css: {
+    extract: true,
+    sourceMap: false,
+    loaderOptions: {
+      scss: {
+        data: `@import "./assets/css/global/variable.scss";`
+      }
+    },
+    modules: false
+  }, */
+  css: {
+    extract: true,
+    sourceMap: false,
+    modules: false,
+    loaderOptions: {
+      sass: {
+        prependData: `
+        @import "@/assets/css/global/variable.scss";
+        `
+      }
+    }
+  }
 };

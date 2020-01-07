@@ -1,7 +1,6 @@
 .contain {
   display: flex;
 
-  $--sidebar-width: 220px;
   .side-bar {
     flex: 0 0 $--sidebar-width;
     width: $--sidebar-width;
