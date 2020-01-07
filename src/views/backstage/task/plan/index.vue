@@ -131,6 +131,7 @@ export default {
         .catch(() => {});
     },
     revise(row) {
+      if (row.taskStatus === 1) return this.error("已完成任务不可编辑");
       if (row.id) this.$refs.addPlanDialog.Show(row.id);
     },
     remove(row) {

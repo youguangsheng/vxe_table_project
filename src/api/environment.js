@@ -18,7 +18,7 @@ let envConfig =
     ? _defaultConfig.develpopment
     : _defaultConfig.production;
 
-console.log(`当前环境：${_env}`);
+// console.log(`当前环境：${_env}`);
 
 export default _.merge(envConfig, {
   env: _env
