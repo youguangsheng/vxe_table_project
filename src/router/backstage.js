@@ -15,12 +15,20 @@ export default [
           {
             path: "plan",
             component: () => import("@/views/backstage/task/plan/index.vue")
+          },
+          {
+            path: "complete",
+            component: () => import("@/views/backstage/task/complete/index.vue")
           }
         ]
       },
       {
         path: "resume",
         component: () => import("@/views/backstage/resume/index.vue")
+      },
+      {
+        path: "todoMVC",
+        component: () => import("@/views/backstage/todoMVC/index.vue")
       },
       {
         path: "CSSCollect",

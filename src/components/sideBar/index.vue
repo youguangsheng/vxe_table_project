@@ -64,7 +64,7 @@ export default {
             },
             {
               menuName: "完成列表",
-              path: "/backstage/task/over",
+              path: "/backstage/task/complete",
               children: []
             },
             {
@@ -83,6 +83,12 @@ export default {
           menuName: "经历",
           icon: "resume",
           path: "/backstage/resume",
+          children: []
+        },
+        {
+          menuName: "todoMVC",
+          icon: "todo-list",
+          path: "/backstage/todoMVC",
           children: []
         },
         {

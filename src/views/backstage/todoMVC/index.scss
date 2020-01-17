@@ -1,0 +1,29 @@
+.contain {
+  background-image: url("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1578461700331&di=e26ecdd5aacee39e9920ee82344fc338&imgtype=0&src=http%3A%2F%2Fimg.mp.sohu.com%2Fupload%2F20170620%2Fe0ea337593fe49239928db1f959c14e1_th.png");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+
+  .todoMVC {
+    background-color: rgba(255, 255, 255, 0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    .content {
+      width: 500px;
+      height: auto;
+      display: flex;
+      flex-direction: column;
+
+      .header {
+        width: 100%;
+        display: flex;
+      }
+
+      .todo-list {
+        width: 100%;
+        height: 500px;
+      }
+    }
+  }
+}

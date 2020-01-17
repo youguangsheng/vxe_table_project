@@ -2,6 +2,7 @@ const _moment = require("moment");
 const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
   .BundleAnalyzerPlugin;
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+
 const externals = {
   vue: "Vue",
   "vue-router": "VueRouter",
@@ -31,6 +32,7 @@ module.exports = {
       return {
         externals: externals, //不打包引入的排除在外
         plugins: [
+          /* 打包分析器 */
           new BundleAnalyzerPlugin(),
           new HtmlWebpackPlugin({
             template: "public/index.html",
@@ -44,18 +46,27 @@ module.exports = {
       };
     }
     return {
-      externals: externals,
+      // externals: externals,
       plugins: [
-        new HtmlWebpackPlugin({
+        /* html模板配置 */
+        /*  new HtmlWebpackPlugin({
           template: "public/index.html",
           buildTime: configuration.buildTime,
           title: configuration.title,
           keywords: configuration.keywords,
           description: configuration.description,
           BASE_URL: "/"
-        })
+        }) */
       ]
     };
+  },
+  chainWebpack: config => {
+    config.plugin("html").tap(args => {
+      if (process.env.NODE_ENV === "development") {
+        args[0].template = "./public/index_dev.html";
+      }
+      return args;
+    });
   },
   devServer: {
     host: "0.0.0.0",
@@ -73,21 +84,12 @@ module.exports = {
     }
   },
   productionSourceMap: false,
-  /* css: {
-    extract: true,
-    sourceMap: false,
-    loaderOptions: {
-      scss: {
-        data: `@import "./assets/css/global/variable.scss";`
-      }
-    },
-    modules: false
-  }, */
   css: {
     extract: true,
     sourceMap: false,
-    modules: false,
+    // requireModuleExtension: false,
     loaderOptions: {
+      /* 全局变量配置 */
       sass: {
         prependData: `
         @import "@/assets/css/global/variable.scss";

@@ -1,0 +1,21 @@
+.content {
+  ul {
+    width: 100%;
+    margin: 20px 0;
+
+    li {
+      width: 100%;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      font-size: 18px;
+      color: #333;
+      padding: 10px 0;
+      border-bottom: 1px solid #ccc;
+
+      .index {
+        width: 50px;
+      }
+    }
+  }
+}

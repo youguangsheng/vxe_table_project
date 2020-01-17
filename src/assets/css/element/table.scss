@@ -1,0 +1,5 @@
+/* elementUI的table表格表头错位问题解决 */
+.el-table--border th.gutter:last-of-type {
+  display: block !important;
+  width: 17px !important;
+}
