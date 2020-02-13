@@ -27,6 +27,10 @@ export default [
         component: () => import("@/views/backstage/resume/index.vue")
       },
       {
+        path: "calendar",
+        component: () => import("@/views/backstage/calendar/index.vue")
+      },
+      {
         path: "todoMVC",
         component: () => import("@/views/backstage/todoMVC/index.vue")
       },

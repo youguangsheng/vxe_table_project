@@ -86,6 +86,12 @@ export default {
           children: []
         },
         {
+          menuName: "万年历",
+          icon: "calendar",
+          path: "/backstage/calendar",
+          children: []
+        },
+        {
           menuName: "todoMVC",
           icon: "todo-list",
           path: "/backstage/todoMVC",

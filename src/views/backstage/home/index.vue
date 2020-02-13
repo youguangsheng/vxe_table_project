@@ -1,6 +1,8 @@
 <template>
   <div class="congested">
-    home
+    <form>
+      <input type="search" />
+    </form>
   </div>
 </template>
 
@@ -8,4 +10,11 @@
 export default {};
 </script>
 
-<style></style>
+<style scoped lang="scss">
+input[type="search"] {
+  border: 1px dotted #999;
+  border-radius: 15px;
+  padding: 5px;
+  -webkit-appearance: none;
+}
+</style>
