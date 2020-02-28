@@ -92,6 +92,12 @@ export default {
           children: []
         },
         {
+          menuName: "G6Editor",
+          icon: "G6Editor",
+          path: "/backstage/G6Editor",
+          children: []
+        },
+        {
           menuName: "todoMVC",
           icon: "todo-list",
           path: "/backstage/todoMVC",

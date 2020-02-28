@@ -3,7 +3,14 @@
     <SearchBar @select="selectTaskList" />
     <div class="congested mt5">
       <el-table :data="tableData" style="width: 100%" height="100%" border>
-        <el-table-column type="selection" width="40"></el-table-column>
+        <el-table-column type="selection" width="40" fixed></el-table-column>
+        <el-table-column
+          type="index"
+          align="center"
+          width="50"
+          label="序号"
+          fixed
+        ></el-table-column>
         <el-table-column
           show-overflow-tooltip
           prop="taskTitle"
@@ -60,12 +67,7 @@
           width="150"
         >
         </el-table-column>
-        <el-table-column
-          fixed="right"
-          prop="taskStatus"
-          label="任务状态"
-          width="300"
-        >
+        <el-table-column prop="taskStatus" label="任务状态" width="300">
           <template slot-scope="scope">
             <span>{{ scope.row.taskStatus === 1 ? "完成" : "未完成" }}</span>
           </template>

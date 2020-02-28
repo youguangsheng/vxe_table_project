@@ -31,8 +31,15 @@ export default [
         component: () => import("@/views/backstage/calendar/index.vue")
       },
       {
+        path: "G6Editor",
+        component: () => import("@/views/backstage/G6Editor/index.vue")
+      },
+      {
         path: "todoMVC",
-        component: () => import("@/views/backstage/todoMVC/index.vue")
+        component: () => import("@/views/backstage/todoMVC/index.vue"),
+        meta: {
+          keepAlive: true
+        }
       },
       {
         path: "CSSCollect",
