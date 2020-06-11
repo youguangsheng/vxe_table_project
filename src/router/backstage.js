@@ -35,6 +35,10 @@ export default [
         component: () => import("@/views/backstage/G6Editor/index.vue")
       },
       {
+        path: "anyTouch",
+        component: () => import("@/views/backstage/anyTouch/index.vue")
+      },
+      {
         path: "todoMVC",
         component: () => import("@/views/backstage/todoMVC/index.vue"),
         meta: {

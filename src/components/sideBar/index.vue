@@ -98,6 +98,12 @@ export default {
           children: []
         },
         {
+          menuName: "anyTouch",
+          icon: "Touch-gesture",
+          path: "/backstage/anyTouch",
+          children: []
+        },
+        {
           menuName: "todoMVC",
           icon: "todo-list",
           path: "/backstage/todoMVC",
