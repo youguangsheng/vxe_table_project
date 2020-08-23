@@ -2,11 +2,11 @@ import _ from "lodash";
 
 const _defaultConfig = {
   develpopment: {
-    backEndUrl: "http://192.168.1.104:3000",
+    backEndUrl: "http://yougs.top",
     api: "/api/"
   },
   production: {
-    backEndUrl: "https://yougs.com",
+    backEndUrl: "http://yougs.top",
     api: "/api/"
   }
 };
